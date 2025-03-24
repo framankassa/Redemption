@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - School of Redemption</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #FFD700;
+            --accent: #FFC000;
+            --light: #FFF9E6;
+            --dark: #333333;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: var(--secondary);
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            height: 120px;
+            width: auto;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        nav {
+            background-color: var(--primary);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 30px;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .contact-info {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            position: relative;
+            text-align: center;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--secondary);
+            padding-left: 15px;
+        }
+        
+        .contact-method {
+            margin-bottom: 25px;
+        }
+        
+        .contact-method p {
+            margin: 5px 0;
+            font-size: 1.1rem;
+        }
+        
+        .contact-method strong {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        form {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 2px solid #eee;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+        }
+        
+        button {
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        footer {
+            background: var(--primary);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        footer p {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            nav a {
+                margin: 0 8px;
+                font-size: 0.9rem;
+                padding: 6px 10px;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                height: 80px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <section class="logo-container">
+            <img src="https://www.schoolofredemption.net/public/images/logo.png" alt="School of Redemption Logo" class="logo">
+        </section>
+        <h1>Contact Us</h1>
+    </header>
+
+    <nav>
+        <a href="redemption.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="news.html">News</a>
+        <a href="contact.html" style="background: var(--secondary); color: var(--primary);">Contact</a>
+        <a href="login.html">Login</a>
+    </nav>
+
+    <main>
+        <h2>Get In Touch</h2>
+        
+        <section class="contact-container">
+            <article class="contact-info">
+                <h3>Contact Information</h3>
+                
+                <section class="contact-method">
+                    <p><strong>Phone:</strong></p>
+                    <p>+251 11 123 4567 (Main Office)</p>
+                    <p>+251 11 123 4568 (Admissions)</p>
+                </section>
+                
+                <section class="contact-method">
+                    <p><strong>Email:</strong></p>
+                    <p>info@schoolofredemption.edu.et</p>
+                    <p>admissions@schoolofredemption.edu.et</p>
+                </section>
+                
+                <section class="contact-method">
+                    <p><strong>Address:</strong></p>
+                    <p>School of Redemption</p>
+                    <p>Bole Subcity, Addis Ababa</p>
+                    <p>Ethiopia</p>
+                </section>
+                
+                <section class="contact-method">
+                    <p><strong>Office Hours:</strong></p>
+                    <p>Monday-Friday: 8:00 AM - 5:00 PM</p>
+                    <p>Saturday: 9:00 AM - 1:00 PM</p>
+                </section>
+                
+                <h3>Follow Us</h3>
+                <nav class="social-links">
+                    <a href="https://www.facebook.com/schoolofredemption" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/schoolofredemption" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@schoolofredemption" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://t.me/schoolofredemption" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://twitter.com/schoolofredemp" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                </nav>
+            </article>
+            
+            <article class="contact-info">
+                <h3>Send Us a Message</h3>
+                <form action="#" method="post">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                    
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                    
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                    
+                    <label for="subject">Subject</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Select a subject</option>
+                        <option value="admissions">Admissions Inquiry</option>
+                        <option value="general">General Information</option>
+                        <option value="feedback">Feedback/Suggestions</option>
+                        <option value="employment">Employment Opportunities</option>
+                        <option value="other">Other</option>
+                    </select>
+                    
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+                    
+                    <button type="submit">Send Message</button>
+                </form>
+            </article>
+        </section>
+        
+        <article class="contact-info">
+            <h3>Location Map</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.755238020239!2d38.76321541478613!3d8.997980693541584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwNTknNTIuNyJOIDM4wrA0NSc1NS42IkU!5e0!3m2!1sen!2set!4v1620000000000!5m2!1sen!2set" width="100%" height="400" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 School of Redemption. All rights reserved.</p>
+        <nav class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="programs.html">Programs</a>
+            <a href="news.html">News</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy.html">Privacy Policy</a>
+        </nav>
+        <p>Addis Ababa, Ethiopia | Phone: +251 11 123 4567</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Faculty | School of Redemption</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #FFD700;
+            --accent: #FFC000;
+            --light: #FFF9E6;
+            --dark: #333333;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            height: 100px;
+            width: auto;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-weight: 800;
+        }
+        
+        nav {
+            background-color: var(--primary);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+        }
+        
+        .department {
+            margin-bottom: 60px;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            border-left: 5px solid var(--secondary);
+            padding-left: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        article {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        article:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .staff-info {
+            padding: 25px;
+        }
+        
+        h4 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .position {
+            color: var(--secondary);
+            font-weight: 600;
+            margin: 5px 0 15px;
+            display: block;
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <section class="logo-container">
+            <img src="https://www.schoolofredemption.net/public/images/logo.png" alt="School of Redemption Logo" class="logo">
+        </section>
+        <h1>Meet Our Faculty</h1>
+        <p>Dedicated educators shaping tomorrow's leaders</p>
+    </header>
+
+    <nav>
+        <a href="redemption.html">Home</a>
+        <a href="staff.html">Staff</a>
+        <a href="resources.html">Resources</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <main>
+        <section class="department">
+            <h2>Academic Leadership</h2>
+            <article class="staff-grid">
+                <article>
+                    <img src="https://ranmen/65.jpg" alt="Dr. Sarah Johnson">
+                    <section class="staff-info">
+                        <h4> Sarah Mekbeb</h4>
+                        <span class="position">Head of School</span>
+                        <p>PhD in Educational Leadership with 20+ years experience transforming schools across Africa.</p>
+                    </section>
+                </article>
+                <article>
+                    <img src="https://2.jpg" alt="Mr. Tewodros Bekele">
+                    <section class="staff-info">
+                        <h4>Mr. Tewodros Bekele</h4>
+                        <span class="position">Academic Dean</span>
+                        <p>Specializes in curriculum development and student success initiatives.</p>
+                    </section>
+                </article>
+            </article>
+        </section>
+
+        <section class="department">
+            <h3>Mathematics Department</h3>
+            <article class="staff-grid">
+                <article>
+                    <img src="htt/44.jpg" alt="Mr Mohammed Kedir">
+                    <section class="staff-info">
+                        <h4>Mr Mohammed Kedir</h4>
+                        <span class="position">Math Chair</span>
+                        <p>Makes algebra engaging through real-world applications and tech integration.</p>
+                    </section>
+                </article>
+                <article>
+                    <img src="https://r75.jpg" alt="Mr. Daniel Assefa">
+                    <section class="staff-info">
+                        <h4>Mr. Daniel Assefa</h4>
+                        <span class="position">Calculus Specialist</span>
+                        <p>Former engineer who brings practical math applications to the classroom.</p>
+                    </section>
+                </article>
+            </article>
+        </section>
+
+        <section class="department">
+            <h3>Science Department</h3>
+            <article class="staff-grid">
+                <article>
+                    <img src="user.memen/68.jpg" alt="Dr. Helen Zerihun">
+                    <section class="staff-info">
+                        <h4>Dr. Helen Zerihun</h4>
+                        <span class="position">Biology Professor</span>
+                        <p>Research specialist in Ethiopian ecosystems and biodiversity.</p>
+                    </section>
+                </article>
+                <article>
+                    <img src=".jpg" alt="Mr. Samuel Kebede">
+                    <section class="staff-info">
+                        <h4>Mr. Samuel Kebede</h4>
+                        <span class="position">Chemistry Lead</span>
+                        <p>Makes complex chemical concepts accessible through innovative experiments.</p>
+                    </section>
+                </article>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 School of Redemption. All rights reserved.</p>
+    </footer>
+</body>
+</html>

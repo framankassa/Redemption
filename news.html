@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus News | School of Redemption</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #FFD700;
+            --accent: #FFC000;
+            --light: #FFF9E6;
+            --dark: #333333;
+            --fun-blue: #42a5f5;
+            --fun-pink: #ff4081;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Neue', cursive, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #333 100%);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            height: 100px;
+            width: auto;
+        }
+        
+        header::before {
+            content: "✏️📚🏆";
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 800;
+            text-shadow: 3px 3px 0 var(--secondary);
+        }
+        
+        header p {
+            margin: 15px 0 0;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        nav {
+            background-color: var(--primary);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: inline-block;
+        }
+        
+        nav a:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--secondary), var(--fun-pink));
+            border-radius: 5px;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        article {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+        
+        article:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: var(--secondary);
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 25px;
+        }
+        
+        .news-category {
+            display: inline-block;
+            background: var(--secondary);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        h3 {
+            font-size: 1.8rem;
+            margin: 0 0 15px;
+            color: var(--primary);
+        }
+        
+        .news-date {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .winner-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--secondary);
+        }
+        
+        .winner-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .winner-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .winner-item {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .winner-name {
+            font-weight: 600;
+        }
+        
+        .winner-class {
+            color: #666;
+        }
+        
+        .event-highlight {
+            background: linear-gradient(135deg, var(--fun-blue), var(--fun-pink));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 40px 0;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        
+        .event-highlight h3 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .event-highlight p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .event-btn {
+            background: white;
+            color: var(--primary);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        
+        .event-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        footer {
+            background: var(--primary);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        .trophy {
+            font-size: 2rem;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <section class="logo-container">
+            <img src="https://www.schoolofredemption.net/public/images/logo.png" alt="School of Redemption Logo" class="logo">
+        </section>
+        <h1>Campus News</h1>
+        <p>Celebrating Our Students' Achievements!</p>
+    </header>
+
+    <nav>
+        <a href="redemption.html">Home</a>
+        <a href="news.html" style="background: var(--secondary); color: var(--primary);">News</a>
+        <a href="contact.html">Contact</a>
+        <a href="staff.html">Staff</a>
+        <a href="resources.html">Resources</a>
+        <a href="register.html">Registration</a>
+    </nav>
+
+    <main>
+        <section style="text-align: center; margin-bottom: 50px;">
+            <h2>Latest Updates</h2>
+        </section>
+
+        <article>
+            <img src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Football tournament" class="news-image">
+            <section class="news-content">
+                <span class="news-category">Sports</span>
+                <h3>Grade 10B Wins Annual Football Tournament!</h3>
+                <span class="news-date">May 15, 2023</span>
+                <p>In an electrifying final match that went to penalties, Grade 11D emerged victorious against defending champions Grade 11A. Team captain Yosef Shibeshi scored the winning penalty, securing the trophy for his class. The tournament saw record attendance this year with over 350 students cheering their teams!</p>
+            </section>
+        </article>
+
+        <article>
+            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Academic awards" class="news-image">
+            <section class="news-content">
+                <span class="news-category">Academics</span>
+                <h3>Annual Excellence Awards Winners Announced</h3>
+                <span class="news-date">March 10, 2025</span>
+                <p>Congratulations to our outstanding students who received special recognition at this year's Excellence Awards ceremony. The awards celebrate students who have shown exceptional performance in various categories.</p>
+                
+                <section class="winner-card">
+                    <h4 class="winner-title">Category Winners:</h4>
+                    <ul class="winner-list">
+                        <li class="winner-item">
+                            <span class="winner-name">Best Penmanship:</span>
+                            <span class="winner-class">Sarah Kebede (9A)</span>
+                        </li>
+                        <li class="winner-item">
+                            <span class="winner-name">Top Math Student:</span>
+                            <span class="winner-class">Joshua Abebe (11C)</span>
+                        </li>
+                        <li class="winner-item">
+                            <span class="winner-name">IT Whiz Kid:</span>
+                            <span class="winner-class">Amina Mohammed (10B)</span>
+                        </li>
+                        <li class="winner-item">
+                            <span class="winner-name">Best English Speaker:</span>
+                            <span class="winner-class">Dawit Negadras (12A)</span>
+                        </li>
+                        <li class="winner-item">
+                            <span class="winner-name">Model Behavior:</span>
+                            <span class="winner-class">Gelila Wasihun (11D)</span>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </article>
+
+        <article>
+            <img src="https://images.unsplash.com/photo-1505377059068-67bdc03d034a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="School event" class="news-image">
+            <section class="news-content">
+                <span class="news-category">Events</span>
+                <h3>Upcoming Campus Events</h3>
+                <span class="news-date">Coming Soon</span>
+                <p>Mark your calendars for these exciting events happening on campus in the coming weeks!</p>
+                
+                <section class="winner-card">
+                    <h4 class="winner-title">Event Schedule:</h4>
+                    <ul class="winner-list">
+                        <li class="winner-item">
+                            <span class="winner-name">Science Fair:</span>
+                            <span class="winner-class">April 5-7</span>
+                        </li>
+                        <li class="winner-item">
+                            <span class="winner-name">Cultural Day:</span>
+                            <span class="winner-class">November</span>
+                        </li>
+                        <li class="winner-item">
+                            <span class="winner-name">Career Week:</span>
+                            <span class="winner-class">June 20-24</span>
+                        </li>
+                        <li class="winner-item">
+                            <span class="winner-name">Music Festival:</span>
+                            <span class="winner-class">July 1</span>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </article>
+
+        <section class="event-highlight">
+            <span class="trophy">🏆</span>
+            <h3>Don't Miss Our Annual Talent Show!</h3>
+            <p>June 30 @ School Amphitheater | 4:00 PM</p>
+            <p>Showcase your talents and cheer for your classmates in our biggest event of the year!</p>
+            <a href="#" class="event-btn">Sign Up to Perform</a>
+        </section>
+
+        <article>
+            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="School library" class="news-image">
+            <section class="news-content">
+                <span class="news-category">Campus Life</span>
+                <h3>New Library Wing Opens Next Month</h3>
+                <span class="news-date">May 5, 2023</span>
+                <p>Thanks to generous donations from alumni, we're excited to announce the opening of our new digital library wing on June 1st. The space will feature 30 new computers, a maker space, and a quiet study area. Stay tuned for the grand opening ceremony!</p>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 School of Redemption. All rights reserved.</p>
+        <p>Follow us on <a href="#" style="color: var(--secondary);">Facebook</a>, <a href="#" style="color: var(--secondary);">Twitter</a>, and <a href="#" style="color: var(--secondary);">Instagram</a> for daily updates!</p>
+    </footer>
+</body>
+</html>

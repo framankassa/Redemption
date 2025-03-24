@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration | School of Redemption</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #FFD700;
+            --accent: #FFC000;
+            --light: #FFF9E6;
+            --dark: #333333;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 800;
+        }
+        
+        header p {
+            margin: 15px 0 0;
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+        
+        nav {
+            background-color: var(--primary);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        nav a:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .registration-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 800px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .registration-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--secondary);
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+        }
+        
+        .registration-steps {
+            display: flex;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 15px;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .step.active .step-number {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        
+        .step-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .step.active .step-text {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .form-section {
+            display: none;
+        }
+        
+        .form-section.active {
+            display: block;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .full-width {
+            grid-column: span 2;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+        }
+        
+        .verification-info {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            grid-column: span 2;
+        }
+        
+        .verification-info p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            grid-column: span 2;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: #f5f5f5;
+        }
+        
+        footer {
+            background: var(--primary);
+            padding: 25px;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .full-width {
+                grid-column: span 1;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .registration-steps {
+                flex-wrap: wrap;
+            }
+            
+            .step {
+                margin: 5px;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <section class="logo-container">
+            <img src="https://www.schoolofredemption.net/public/images/logo.png" alt="School of Redemption Logo" class="logo">
+        </section>
+        <h1>Student Registration</h1>
+        <p>Join our learning community in 3 easy steps</p>
+    </header>
+
+    <nav>
+        <a href="redemption.html">Home</a>
+        <a href="resources.html">Resources</a>
+        <a href="Contact.html">Contact Us </a>
+        <a href="staff.html">Teachers</a>
+        <a href="login.html">Student Login</a>
+    </nav>
+
+    <main>
+        <section class="registration-container">
+            <h2>Create Your Student Account</h2>
+            
+            <section class="registration-steps">
+                <article class="step active" data-step="1">
+                    <span class="step-number">1</span>
+                    <span class="step-text">Personal Info</span>
+                </article>
+                <article class="step" data-step="2">
+                    <span class="step-number">2</span>
+                    <span class="step-text">School Verification</span>
+                </article>
+                <article class="step" data-step="3">
+                    <span class="step-number">3</span>
+                    <span class="step-text">Account Setup</span>
+                </article>
+            </section>
+            
+            <!-- Step 1: Personal Information -->
+            <section class="form-section active" id="step-1">
+                <form>
+                    <article class="form-grid">
+                        <article class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" name="first-name" required>
+                        </article>
+                        
+                        <article class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" name="last-name" required>
+                        </article>
+                        
+                        <article class="form-group full-width">
+                            <label for="email">School Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="your.name@redemption.edu" required>
+                        </article>
+                    </article>
+                    
+                    <article class="btn-group">
+                        <button type="button" class="btn btn-primary next-step" data-next="2">Continue</button>
+                    </article>
+                </form>
+            </section>
+            
+            <!-- Step 2: School Verification -->
+            <section class="form-section" id="step-2">
+                <form>
+                    <article class="verification-info">
+                        <p><strong>Verification required:</strong> Please enter the verification ID provided by your school administration. This ensures only current students can register.</p>
+                    </article>
+                    
+                    <article class="form-grid">
+                        <article class="form-group full-width">
+                            <label for="verification-id">School Verification ID</label>
+                            <input type="text" id="verification-id" name="verification-id" placeholder="Enter your 8-digit verification code" required>
+                        </article>
+                    </article>
+                    
+                    <article class="btn-group">
+                        <button type="button" class="btn btn-secondary prev-step" data-prev="1">Back</button>
+                        <button type="button" class="btn btn-primary next-step" data-next="3">Verify & Continue</button>
+                    </article>
+                </form>
+            </section>
+            
+            <!-- Step 3: Account Setup -->
+            <section class="form-section" id="step-3">
+                <form action="registration-success.html" method="post">
+                    <article class="form-grid">
+                        <article class="form-group">
+                            <label for="username">Create Username</label>
+                            <input type="text" id="username" name="username" placeholder="Must be 6+ characters" required>
+                        </article>
+                        
+                        <article class="form-group">
+                            <label for="password">Create Password</label>
+                            <input type="password" id="password" name="password" placeholder="Minimum 8 characters" required>
+                        </article>
+                        
+                        <article class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" name="confirm-password" required>
+                        </article>
+                        
+                        <article class="form-group full-width">
+                            <label for="security-question">Security Question</label>
+                            <select id="security-question" name="security-question" required>
+                                <option value="">Select a security question</option>
+                                <option value="pet">What was your first pet's name?</option>
+                                <option value="teacher">Who was your favorite elementary school teacher?</option>
+                                <option value="book">What was your favorite book as a child?</option>
+                            </select>
+                        </article>
+                        
+                        <article class="form-group full-width">
+                            <label for="security-answer">Security Answer</label>
+                            <input type="text" id="security-answer" name="security-answer" required>
+                        </article>
+                    </article>
+                    
+                    <article class="btn-group">
+                        <button type="button" class="btn btn-secondary prev-step" data-prev="2">Back</button>
+                        <button type="submit" class="btn btn-primary">Complete Registration</button>
+                    </article>
+                </form>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 School of Redemption. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simple step navigation
+        document.querySelectorAll('.next-step').forEach(button => {
+            button.addEventListener('click', function() {
+                const nextStep = this.getAttribute('data-next');
+                document.querySelector('.form-section.active').classList.remove('active');
+                document.querySelector(`#step-${nextStep}`).classList.add('active');
+                
+                document.querySelector('.step.active').classList.remove('active');
+                document.querySelector(`.step[data-step="${nextStep}"]`).classList.add('active');
+            });
+        });
+        
+        document.querySelectorAll('.prev-step').forEach(button => {
+            button.addEventListener('click', function() {
+                const prevStep = this.getAttribute('data-prev');
+                document.querySelector('.form-section.active').classList.remove('active');
+                document.querySelector(`#step-${prevStep}`).classList.add('active');
+                
+                document.querySelector('.step.active').classList.remove('active');
+                document.querySelector(`.step[data-step="${prevStep}"]`).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

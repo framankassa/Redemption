@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard | School of Redemption</title>
+    <style>
+        :root {
+            --primary: #000000;         
+            --secondary: #D4AF37;      
+            --accent: #003366;         
+            --accent-light: #1a4d80;     
+            --light: #FFFFFF;            
+            --medium: #777777;           
+            --dark: #333333;             
+            --success: #28a745;        
+            --warning: #ffc107;        
+            --danger: #dc3545;           
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .dashboard-header {
+            background-color: var(--accent);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 50px;
+            width: auto;
+            margin-right: 15px;
+        }
+        
+        .teacher-info {
+            text-align: right;
+        }
+        
+        .teacher-info h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .teacher-info p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            color: white;
+        }
+        
+        .dashboard-nav {
+            background-color: var(--primary);
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .dashboard-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-nav a:hover, .dashboard-nav a.active {
+            background-color: var(--accent-light);
+            color: white;
+        }
+        
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: calc(100vh - 120px);
+        }
+        
+        .sidebar {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            border-right: 1px solid #eee;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-section h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .quick-links a {
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            padding: 8px 0;
+            transition: all 0.2s ease;
+        }
+        
+        .quick-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .upcoming-events li {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .upcoming-events li::before {
+            content: "•";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+        }
+        
+        .main-content {
+            padding: 25px;
+            background-color: #f8f9fa;
+        }
+        
+        .dashboard-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .dashboard-card h3 {
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table th {
+            background-color: var(--accent);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .attendance-present {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .attendance-absent {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .attendance-late {
+            color: var(--warning);
+            font-weight: bold;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--medium);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--accent);
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .grade-input {
+            width: 60px;
+            text-align: center;
+        }
+        
+        .feedback-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feedback-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: var(--medium);
+        }
+        
+        .feedback-student {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .feedback-content {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        @media (max-width: 992px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="logo-container">
+            <img src="https://www.schoolofredemption.net/public/images/logo.png" alt="School Logo" class="logo">
+            <h1>Teacher Dashboard</h1>
+        </div>
+        <div class="teacher-info">
+            <h2>Mike Daniel</h2>
+            <p>Marketing Teacher | Grade 11 | ID: c</p>
+        </div>
+    </header>
+    
+    <nav class="dashboard-nav">
+        <a href="redemption.html">Home</a>
+        <a href="#" class="active"><i class="fas fa-chalkboard-teacher"></i> Dashboard</a>
+        <a href="#"><i class="fas fa-book"></i> Lesson Plans</a>
+        <a href="#"><i class="fas fa-calendar-alt"></i> Schedule</a>
+        <a href="#"><i class="fas fa-clipboard-check"></i> Attendance</a>
+        <a href="#"><i class="fas fa-graduation-cap"></i> Grades</a>
+        <a href="#"><i class="fas fa-envelope"></i> Messages</a>
+    </nav>
+    
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Quick Links</h3>
+                <div class="quick-links">
+                    <a href="#"><i class="fas fa-plus-circle"></i> Create Assignment</a>
+                    <a href="#"><i class="fas fa-upload"></i> Upload Materials</a>
+                    <a href="#"><i class="fas fa-calendar-plus"></i> Add Event</a>
+                    <a href="#"><i class="fas fa-chart-bar"></i> Performance Reports</a>
+                    <a href="#"><i class="fas fa-user-edit"></i> Update Profile</a>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Upcoming Deadlines</h3>
+                <ul class="upcoming-events">
+                    <li>Grade Marketing Quiz - Dec 12</li>
+                    <li>Submit Midterm Marks - Dec 20</li>
+                    <li>Parent Meetings - Dec 25</li>
+                    <li>Project Submissions Due - Jan 3</li>
+                    <li>Term Reports Due - Feb 15</li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Teaching Schedule</h3>
+                <div style="background: #f5f5f5; padding: 10px; border-radius: 5px;">
+                    <div style="font-weight: bold; color: var(--accent); margin-bottom: 10px;">Today's Classes</div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-weight: 600;">08:45 - 9:30</div>
+                        <div>Grade 11A - Marketing</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-weight: 600;">10:30 - 11:15</div>
+                        <div>Grade 11B - Marketing</div>
+                    </div>
+                    <div style="margin-bottom: 8px;">
+                        <div style="font-weight: 600;">1:30 - 8:15</div>
+                        <div>Grade 11C - Marketing</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <div class="dashboard-card">
+                <h3>Grade Submission</h3>
+                <div class="tabs">
+                    <div class="tab active" data-tab="quiz">Quiz</div>
+                    <div class="tab" data-tab="worksheet">Worksheet</div>
+                    <div class="tab" data-tab="test">Test</div>
+                </div>
+                
+                <div class="tab-content active" id="quiz">
+                    <div class="form-group">
+                        <label for="quiz-name">Quiz Name</label>
+                        <input type="text" id="quiz-name" placeholder="e.g. Marketing Principles Quiz 1">
+                    </div>
+                    <div class="form-group">
+                        <label for="quiz-date">Date</label>
+                        <input type="date" id="quiz-date">
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Grade (0-100)</th>
+                                <th>Comments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+     <tr>
+          <td>S-11001</td>
+                        <td>Abel Tesfaye</td>
+                                <td><input type="number" class="grade-input" min="0" max="100" value="92"></td>
+                                <td><input type="text" placeholder="Comments"></td>
+                            </tr>
+                            <tr>
+                                <td>S-11002</td>
+                                <td>Meron Abebe</td>
+                                <td><input type="number" class="grade-input" min="0" max="100" value="85"></td>
+                                <td><input type="text" placeholder="Comments"></td>
+                            </tr>
+                            <tr>
+                                <td>S-11003</td>
+                                <td>Yohannes Girma</td>
+                                <td><input type="number" class="grade-input" min="0" max="100" value="78"></td>
+                                <td><input type="text" placeholder="Comments"></td>
+                            </tr>
+                            <tr>
+                                <td>S-11004</td>
+                                <td>Selamawit Kebede</td>
+                                <td><input type="number" class="grade-input" min="0" max="100" value="91"></td>
+                                <td><input type="text" placeholder="Comments"></td>
+                            </tr>
+                            <!-- Additional Ethiopian student names -->
+                            <tr>
+                                <td>S-11005</td>
+                                <td>Tewodros Assefa</td>
+                                <td><input type="number" class="grade-input" min="0" max="100" value="88"></td>
+                                <td><input type="text" placeholder="Comments"></td>
+                            </tr>
+                            <tr>
+                                <td>S-11006</td>
+                                <td>Hana Mohammed</td>
+                                <td><input type="number" class="grade-input" min="0" max="100" value="76"></td>
+                                <td><input type="text" placeholder="Comments"></td>
+                            </tr>
+                            <tr>
+                                <td>S-11007</td>
+                                <td>Dawit Solomon</td>
+                                <td><input type="number" class="grade-input" min="0" max="100" value="82"></td>
+                                <td><input type="text" placeholder="Comments"></td>
+                            </tr>
+                            <tr>
+                                <td>S-11008</td>
+                                <td>Eyerusalem Tadesse</td>
+                                <td><input type="number" class="grade-input" min="0" max="100" value="95"></td>
+                                <td><input type="text" placeholder="Comments"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn"><i class="fas fa-save"></i> Submit Grades</button>
+                </div>
+                
+                <div class="tab-content" id="worksheet">
+                    <!-- Similar structure for worksheet grades -->
+                    <p>Worksheet grade submission form would appear here</p>
+                </div>
+                
+                <div class="tab-content" id="test">
+                    <!-- Similar structure for test grades -->
+                    <p>Test grade submission form would appear here</p>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>Student Feedback</h3>
+                <div class="form-group">
+                    <label for="feedback-student">Select Student</label>
+                    <select id="feedback-student">
+                        <option value="">-- Select Student --</option>
+                        <option value="S-11001">Abel Tesfaye</option>
+                        <option value="S-11002">Meron Abebe</option>
+                        <option value="S-11003">Yohannes Girma</option>
+                        <option value="S-11004">Selamawit Kebede</option>
+                        <option value="S-11005">Tewodros Assefa</option>
+                        <option value="S-11006">Hana Mohammed</option>
+                        <option value="S-11007">Dawit Solomon</option>
+                        <option value="S-11008">Eyerusalem Tadesse</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="feedback-type">Feedback Type</label>
+                    <select id="feedback-type">
+                        <option value="academic">Academic Performance</option>
+                        <option value="behavior">Classroom Behavior</option>
+                        <option value="improvement">Areas for Improvement</option>
+                        <option value="praise">Praise/Recognition</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="feedback-message">Feedback Message</label>
+                    <textarea id="feedback-message" rows="4" placeholder="Write your feedback here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="copy-parent"> Also send to parent/guardian
+                    </label>
+                </div>
+                <button class="btn"><i class="fas fa-paper-plane"></i> Send Feedback</button>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>Parent Communication</h3>
+                <div class="form-group">
+                    <label for="parent-student">Select Student</label>
+                    <select id="parent-student">
+                        <option value="">-- Select Student --</option>
+                        <option value="S-11001">Abel Tesfaye (Parent: Mr. Teshome)</option>
+                        <option value="S-11002">Meron Abebe (Parent: Mrs. Abebe)</option>
+                        <option value="S-11003">Yohannes Girma (Parent: Mr. Girma)</option>
+                        <option value="S-11004">Selamawit Kebede (Parent: Mrs. Kebede)</option>
+                        <option value="S-11005">Tewodros Assefa (Parent: Mr. Assefa)</option>
+                        <option value="S-11006">Hana Mohammed (Parent: Mrs. Mohammed)</option>
+                        <option value="S-11007">Dawit Solomon (Parent: Mr. Solomon)</option>
+                        <option value="S-11008">Eyerusalem Tadesse (Parent: Mrs. Tadesse)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="parent-subject">Subject</label>
+                    <input type="text" id="parent-subject" placeholder="Subject of your message">
+                </div>
+                <div class="form-group">
+                    <label for="parent-message">Message</label>
+                    <textarea id="parent-message" rows="4" placeholder="Write your message to the parent..."></textarea>
+                </div>
+                <button class="btn"><i class="fas fa-envelope"></i> Send to Parent</button>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>
+                    <span>Class Attendance - Grade 11B (Marketing)</span>
+                    <span style="font-size: 1rem; font-weight: normal;">October 10, 2025</span>
+                </h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student ID</th>
+                            <th>Student Name</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>S-11001</td>
+                            <td>Abel Tesfaye</td>
+                            <td class="attendance-present">Present</td>
+                            <td><input type="text" placeholder="Notes"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11002</td>
+                            <td>Meron Abebe</td>
+                            <td class="attendance-present">Present</td>
+                            <td><input type="text" placeholder="Notes"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11003</td>
+                            <td>Yohannes Girma</td>
+                            <td class="attendance-absent">Absent</td>
+                            <td><input type="text" placeholder="Notes" value="Sick leave"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11004</td>
+                            <td>Selamawit Kebede</td>
+                            <td class="attendance-present">Present</td>
+                            <td><input type="text" placeholder="Notes"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11005</td>
+                            <td>Tewodros Assefa</td>
+                            <td class="attendance-late">Late (15 min)</td>
+                            <td><input type="text" placeholder="Notes" value="Traffic"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11006</td>
+                            <td>Hana Mohammed</td>
+                            <td class="attendance-present">Present</td>
+                            <td><input type="text" placeholder="Notes"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11007</td>
+                            <td>Dawit Solomon</td>
+                            <td class="attendance-present">Present</td>
+                            <td><input type="text" placeholder="Notes"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11008</td>
+                            <td>Eyerusalem Tadesse</td>
+                            <td class="attendance-absent">Absent</td>
+                            <td><input type="text" placeholder="Notes" value="Family emergency"></td>
+                        </tr>
+                        <!-- Additional Ethiopian student names -->
+                        <tr>
+                            <td>S-11009</td>
+                            <td>Bereket Assefa</td>
+                            <td class="attendance-present">Present</td>
+                            <td><input type="text" placeholder="Notes"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11010</td>
+                            <td>Mekdes Hailu</td>
+                            <td class="attendance-present">Present</td>
+                            <td><input type="text" placeholder="Notes"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11011</td>
+                            <td>Samuel Getachew</td>
+                            <td class="attendance-present">Present</td>
+                            <td><input type="text" placeholder="Notes"></td>
+                        </tr>
+                        <tr>
+                            <td>S-11012</td>
+                            <td>Rahel Yohannes</td>
+                            <td class="attendance-late">Late (5 min)</td>
+                            <td><input type="text" placeholder="Notes"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <button class="btn btn-secondary"><i class="fas fa-print"></i> Print Attendance</button>
+                    <button class="btn"><i class="fas fa-save"></i> Save Attendance</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

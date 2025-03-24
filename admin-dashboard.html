@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | School of Redemption</title>
+    <style>
+        :root {
+            --primary: #000000;         /* Black */
+            --secondary: #D4AF37;       /* Gold */
+            --accent: #003366;          /* Dark Powder Blue */
+            --accent-light: #1a4d80;    /* Lighter blue */
+            --light: #FFFFFF;           /* White */
+            --medium: #777777;          /* Medium Grey */
+            --dark: #333333;            /* Dark Grey */
+            --success: #28a745;         /* Green */
+            --warning: #ffc107;         /* Yellow */
+            --danger: #dc3545;          /* Red */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .dashboard-header {
+            background-color: var(--accent);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            margin-right: 15px;
+        }
+
+        .admin-info {
+            text-align: right;
+        }
+
+        .admin-info h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .admin-info p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .dashboard-nav {
+            background-color: var(--primary);
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .dashboard-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-nav a:hover, .dashboard-nav a.active {
+            background-color: var(--accent-light);
+            color: white;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            border-right: 1px solid #eee;
+        }
+
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+
+        .sidebar-section h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .quick-links a {
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            padding: 8px 0;
+            transition: all 0.2s ease;
+        }
+
+        .quick-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .main-content {
+            padding: 25px;
+            background-color: #f8f9fa;
+        }
+
+        .dashboard-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .dashboard-card h3 {
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 8px;
+        }
+
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent);
+        }
+
+        .stat-card h4 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .stat-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--dark);
+        }
+
+        .stat-card .trend {
+            font-size: 0.9rem;
+            color: var(--medium);
+        }
+
+        .trend.up {
+            color: var(--success);
+        }
+
+        .trend.down {
+            color: var(--danger);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table th {
+            background-color: var(--accent);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .grade-A {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .grade-B {
+            color: #17a2b8;
+            font-weight: bold;
+        }
+
+        .grade-C {
+            color: var(--warning);
+            font-weight: bold;
+        }
+
+        .grade-D {
+            color: #fd7e14;
+            font-weight: bold;
+        }
+
+        .grade-F {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .attendance-present {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .attendance-absent {
+            color: var(--danger);
+            font-weight: bold;
+        }
+
+        .attendance-late {
+            color: var(--warning);
+            font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--medium);
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            border-bottom-color: var(--accent);
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .teacher-performance {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .performance-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .performance-card h4 {
+            margin: 0 0 10px 0;
+            color: var(--accent);
+        }
+
+        .performance-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--medium);
+            margin-bottom: 10px;
+        }
+
+        .performance-score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 10px 0;
+        }
+
+        .performance-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .performance-fill {
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: 5px;
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .stats-summary, .teacher-performance {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="logo-container">
+            <img src="https://www.schoolofredemption.net/public/images/logo.png" alt="School Logo" class="logo">
+            <h1>Admin Dashboard</h1>
+        </div>
+        <div class="admin-info">
+            <h2>Admin User</h2>
+            <p>School Administrator | Last Login: Today</p>
+        </div>
+    </header>
+
+    <nav class="dashboard-nav">
+        <a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Overview</a>
+        <a href="#"><i class="fas fa-users"></i> Students</a>
+        <a href="#"><i class="fas fa-chalkboard-teacher"></i> Teachers</a>
+        <a href="#"><i class="fas fa-calendar-check"></i> Attendance</a>
+        <a href="#"><i class="fas fa-file-invoice-dollar"></i> Finance</a>
+        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>Quick Actions</h3>
+                <div class="quick-links">
+                    <a href="#"><i class="fas fa-user-plus"></i> Add New Student</a>
+                    <a href="#"><i class="fas fa-user-tie"></i> Add New Teacher</a>
+                    <a href="#"><i class="fas fa-calendar-plus"></i> Create Event</a>
+                    <a href="#"><i class="fas fa-file-export"></i> Generate Reports</a>
+                    <a href="#"><i class="fas fa-bell"></i> Notifications</a>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Recent Alerts</h3>
+                <ul class="upcoming-events">
+                    <li>3 Unapproved Leave Requests</li>
+                    <li>2 Pending Fee Payments</li>
+                    <li>1 Teacher Evaluation Due</li>
+                    <li>5 New Student Applications</li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>System Status</h3>
+                <div style="font-size: 0.9rem;">
+                    <p><strong>Last Backup:</strong> March 10, 2025</p>
+                    <p><strong>Storage:</strong> 65% Used</p>
+                    <p><strong>Active Users:</strong> 42</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="stats-summary">
+                <div class="stat-card">
+                    <h4>Total Students</h4>
+                    <div class="value">1,245</div>
+                    <div class="trend up"><i class="fas fa-arrow-up"></i> 5% from last term</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Total Teachers</h4>
+                    <div class="value">68</div>
+                    <div class="trend up"><i class="fas fa-arrow-up"></i> 2 new hires</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Attendance Rate</h4>
+                    <div class="value">94%</div>
+                    <div class="trend down"><i class="fas fa-arrow-down"></i> 1% from last month</div>
+                </div>
+                <div class="stat-card">
+                    <h4>Fee Collection</h4>
+                    <div class="value">87%</div>
+                    <div class="trend up"><i class="fas fa-arrow-up"></i> 3% from last month</div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Teacher Performance Assessment</h3>
+                <div class="teacher-performance">
+                    <div class="performance-card">
+                        <h4>Mr. Daniel (Marketing)</h4>
+                        <div class="performance-meta">
+                            <span>Grade 11</span>
+                            <span>5 Years Exp</span>
+                        </div>
+                        <div class="performance-score">88%</div>
+                        <div class="performance-bar">
+                            <div class="performance-fill" style="width: 88%"></div>
+                        </div>
+                        <p><strong>Strengths:</strong> Engaging lessons, high student satisfaction</p>
+                        <p><strong>Areas for Improvement:</strong> Grading turnaround time</p>
+                        <button class="btn" style="margin-top: 10px;">View Full Evaluation</button>
+                    </div>
+                    <div class="performance-card">
+                        <h4>Ms. Johnson (English)</h4>
+                        <div class="performance-meta">
+                            <span>Grade 10-12</span>
+                            <span>8 Years Exp</span>
+                        </div>
+                        <div class="performance-score">92%</div>
+                        <div class="performance-bar">
+                            <div class="performance-fill" style="width: 92%"></div>
+                        </div>
+                        <p><strong>Strengths:</strong> Excellent communication skills</p>
+                        <p><strong>Areas for Improvement:</strong> None noted</p>
+                        <button class="btn" style="margin-top: 10px;">View Full Evaluation</button>
+                    </div>
+                    <div class="performance-card">
+                        <h4>Mr. Gebremichael (Math)</h4>
+                        <div class="performance-meta">
+                            <span>Grade 9-11</span>
+                            <span>3 Years Exp</span>
+                        </div>
+                        <div class="performance-score">79%</div>
+                        <div class="performance-bar">
+                            <div class="performance-fill" style="width: 79%"></div>
+                        </div>
+                        <p><strong>Strengths:</strong> Strong subject knowledge</p>
+                        <p><strong>Areas for Improvement:</strong> Classroom management</p>
+                        <button class="btn" style="margin-top: 10px;">View Full Evaluation</button>
+                    </div>
+                </div>
+                <button class="btn-outline" style="margin-top: 20px;">View All Teacher Evaluations</button>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Recent Student Applications</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Application ID</th>
+                            <th>Student Name</th>
+                            <th>Grade</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>APP-2023-101</td>
+                            <td>Meron Abebe</td>
+                            <td>Grade 10</td>
+                            <td><span style="color: var(--warning);">Pending</span></td>
+                            <td><button class="btn">Review</button></td>
+                        </tr>
+                        <tr>
+                            <td>APP-2023-102</td>
+                            <td>Yohannes Girma</td>
+                            <td>Grade 9</td>
+                            <td><span style="color: var(--warning);">Pending</span></td>
+                            <td><button class="btn">Review</button></td>
+                        </tr>
+                        <tr>
+                            <td>APP-2023-103</td>
+                            <td>Selamawit Kebede</td>
+                            <td>Grade 11</td>
+                            <td><span style="color: var(--success);">Approved</span></td>
+                            <td><button class="btn">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>APP-2023-104</td>
+                            <td>Tewodros Assefa</td>
+                            <td>Grade 9</td>
+                            <td><span style="color: var(--danger);">Rejected</span></td>
+                            <td><button class="btn">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn-outline" style="margin-top: 15px;">View All Applications</button>
+            </div>
+
+            <div class="dashboard-card">
+                <h3>Fee Collection Status</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Total Students</th>
+                            <th>Fees Paid</th>
+                            <th>Pending</th>
+                            <th>% Collected</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Grade 8</td>
+                            <td>210</td>
+                            <td>185</td>
+                            <td>25</td>
+                            <td>88%</td>
+                        </tr>
+                        <tr>
+                            <td>Grade 9</td>
+                            <td>195</td>
+                            <td>170</td>
+                            <td>25</td>
+                            <td>87%</td>
+                        </tr>
+                        <tr>
+                            <td>Grade 10</td>
+                            <td>180</td>
+                            <td>160</td>
+                            <td>20</td>
+                            <td>89%</td>
+                        </tr>
+                        <tr>
+                            <td>Grade 11</td>
+                            <td>175</td>
+                            <td>150</td>
+                            <td>25</td>
+                            <td>86%</td>
+                        </tr>
+                        <tr>
+                            <td>Grade 12</td>
+                            <td>165</td>
+                            <td>140</td>
+                            <td>25</td>
+                            <td>85%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn-outline" style="margin-top: 15px;">Generate Financial Report</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

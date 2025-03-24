@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Dashboard | School of Redemption</title>
+    <style>
+        :root {
+            --primary: #000000;         /* Black */
+            --secondary: #D4AF37;       /* Gold */
+            --accent: #003366;          /* Dark Powder Blue */
+            --accent-light: #1a4d80;    /* Slightly lighter blue */
+            --light: #FFFFFF;           /* White */
+            --medium: #777777;          /* Medium Grey */
+            --dark: #333333;            /* Dark Grey */
+            --success: #28a745;         /* Green for positive indicators */
+            --warning: #ffc107;         /* Yellow for warnings */
+            --danger: #dc3545;          /* Red for danger/drop indicators */
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .dashboard-header {
+            background-color: var(--accent);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 50px;
+            width: auto;
+            margin-right: 15px;
+        }
+        
+        .parent-info {
+            text-align: right;
+        }
+        
+        .parent-info h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--secondary);
+        }
+        
+        .parent-info p {
+            margin: 5px 0 0;
+            font-size: 0.9rem;
+            color: white;
+        }
+        
+        .dashboard-nav {
+            background-color: var(--primary);
+            padding: 15px;
+            display: flex;
+            justify-content: space-around;
+        }
+        
+        .dashboard-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-nav a:hover, .dashboard-nav a.active {
+            background-color: var(--accent-light);
+            color: white;
+        }
+        
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: calc(100vh - 120px);
+        }
+        
+        .sidebar {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+            border-right: 1px solid #eee;
+        }
+        
+        .sidebar-section {
+            margin-bottom: 30px;
+        }
+        
+        .sidebar-section h3 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .quick-links a {
+            display: block;
+            color: var(--dark);
+            text-decoration: none;
+            padding: 8px 0;
+            transition: all 0.2s ease;
+        }
+        
+        .quick-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+        
+        .upcoming-events li {
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            padding-left: 15px;
+            position: relative;
+        }
+        
+        .upcoming-events li::before {
+            content: "•";
+            color: var(--secondary);
+            position: absolute;
+            left: 0;
+        }
+        
+        .main-content {
+            padding: 25px;
+            background-color: #f8f9fa;
+        }
+        
+        .dashboard-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .dashboard-card h3 {
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .student-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .summary-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--accent);
+        }
+        
+        .summary-card h4 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1rem;
+        }
+        
+        .summary-card .value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--dark);
+        }
+        
+        .summary-card .trend {
+            font-size: 0.9rem;
+            color: var(--medium);
+        }
+        
+        .trend.up {
+            color: var(--success);
+        }
+        
+        .trend.down {
+            color: var(--danger);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table th {
+            background-color: var(--accent);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .grade-A {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .grade-B {
+            color: #17a2b8;
+            font-weight: bold;
+        }
+        
+        .grade-C {
+            color: var(--warning);
+            font-weight: bold;
+        }
+        
+        .grade-D {
+            color: #fd7e14;
+            font-weight: bold;
+        }
+        
+        .grade-F {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .attendance-present {
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .attendance-absent {
+            color: var(--danger);
+            font-weight: bold;
+        }
+        
+        .attendance-late {
+            color: var(--warning);
+            font-weight: bold;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-light);
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--medium);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--accent);
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .message-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .message-item:last-child {
+            border-bottom: none;
+        }
+        
+        .message-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: var(--medium);
+        }
+        
+        .message-teacher {
+            font-weight: 600;
+            color: var(--accent);
+        }
+        
+        .message-content {
+            background-color: #f8f9fa;
+            padding: 12px;
+            border-radius: 4px;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .message-unread {
+            background-color: #e6f0ff;
+        }
+        
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+        }
+        
+        .calendar-header {
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            color: var(--accent);
+        }
+        
+        .calendar-day {
+            padding: 10px;
+            min-height: 60px;
+            border: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        
+        .calendar-day.empty {
+            background-color: #f9f9f9;
+        }
+        
+        .calendar-day.today {
+            background-color: #e6f0ff;
+            border-color: var(--accent);
+        }
+        
+        .calendar-event {
+            background-color: var(--accent);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 992px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .student-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="logo-container">
+            <img src="https://www.schoolofredemption.net/public/images/logo.png" alt="School Logo" class="logo">
+            <h1>Parent Dashboard</h1>
+        </div>
+        <div class="parent-info">
+            <h2>Mr. Teshome Tesfaye</h2>
+            <p>Parent of Abel Tesfaye (Grade 11B)</p>
+        </div>
+    </header>
+    
+    <nav class="dashboard-nav">
+        <a href="#" class="active"><i class="fas fa-home"></i> Overview</a>
+        <a href="#"><i class="fas fa-graduation-cap"></i> Academics</a>
+        <a href="#"><i class="fas fa-calendar-check"></i> Attendance</a>
+        <a href="#"><i class="fas fa-comments"></i> Communication</a>
+        <a href="#"><i class="fas fa-calendar-alt"></i> School Calendar</a>
+        <a href="#"><i class="fas fa-file-invoice-dollar"></i> Fees</a>
+    </nav>
+    
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3>My Children</h3>
+                <div class="quick-links">
+                    <a href="#" class="active"><i class="fas fa-user-graduate"></i> Abel Tesfaye (Grade 11B)</a>
+                    <a href="#"><i class="fas fa-user-graduate"></i> Eden Tesfaye (Grade 9A)</a>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Quick Links</h3>
+                <div class="quick-links">
+                    <a href="#"><i class="fas fa-file-alt"></i> Report Cards</a>
+                    <a href="#"><i class="fas fa-calendar-day"></i> Today's Schedule</a>
+                  
+                
+                    <a href="#"><i class="fas fa-user-edit"></i> Update Profile</a>
+                </div>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Upcoming Events</h3>
+                <ul class="upcoming-events">
+                    <li>Parent-Teacher Meeting - Dec 15</li>
+                    <li>Geography Field Trip - Dec 18</li>
+                    <li>Midterm Exams - Jan 1-5</li>
+                    <li>School Cultural Day - Jan 10</li>
+                    <li>Term Ends - Feb 15</li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Important Contacts</h3>
+                <div style="font-size: 0.9rem;">
+                    <p><strong>Class Teacher:</strong><br>
+                    Mrs. Alemu<br>
+                    <a href="mailto:alemu@schoolofredemption.edu.et">alemu@schoolofredemption.edu.et</a></p>
+                    
+                    <p><strong>Principal:</strong><br>
+                    Mr. Kebede<br>
+                    <a href="mailto:principal@schoolofredemption.edu.et">principal@schoolofredemption.edu.et</a></p>
+                    
+                    <p><strong>Office:</strong><br>
+                    +251 11 123 4567</p>
+                </div>
+            </div>
+        </aside>
+        
+        <main class="main-content">
+            <div class="student-summary">
+                <div class="summary-card">
+                    <h4>Abel's Overall Average</h4>
+                    <div class="value">84.5%</div>
+                    <div class="trend up"><i class="fas fa-arrow-up"></i> 2.3% from last term</div>
+                </div>
+                <div class="summary-card">
+                    <h4>Attendance</h4>
+                    <div class="value">96%</div>
+                    <div class="trend up"><i class="fas fa-arrow-up"></i> 1% from last month</div>
+                </div>
+                <div class="summary-card">
+                    <h4>Class Rank</h4>
+                    <div class="value">7/42</div>
+                    <div class="trend up"><i class="fas fa-arrow-up"></i> 2 places improved</div>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>Current Grades</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Teacher</th>
+                            <th>1st Quarter</th>
+                            <th>2nd Quarter</th>
+                            <th>Average</th>
+                            <th>Grade</th>
+                            <th>Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>English</td>
+                            <td>Ms. Johnson</td>
+                            <td>85%</td>
+                            <td>88%</td>
+                            <td>86.5%</td>
+                            <td class="grade-A">A</td>
+                            <td><i class="fas fa-arrow-up trend up"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Mathematics</td>
+                            <td>Mr. Gebremichael</td>
+                            <td>82%</td>
+                            <td>85%</td>
+                            <td>83.5%</td>
+                            <td class="grade-A">A</td>
+                            <td><i class="fas fa-arrow-up trend up"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Geography</td>
+                            <td>Mrs. Alemu</td>
+                            <td>78%</td>
+                            <td>81%</td>
+                            <td>79.5%</td>
+                            <td class="grade-B">B+</td>
+                            <td><i class="fas fa-arrow-up trend up"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Economics</td>
+                            <td>Mr. Tadesse</td>
+                            <td>80%</td>
+                            <td>83%</td>
+                            <td>81.5%</td>
+                            <td class="grade-A">A-</td>
+                            <td><i class="fas fa-arrow-up trend up"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Marketing</td>
+                            <td>Mr. Daniel</td>
+                            <td>87%</td>
+                            <td>90%</td>
+                            <td>88.5%</td>
+                            <td class="grade-A">A</td>
+                            <td><i class="fas fa-arrow-up trend up"></i></td>
+                        </tr>
+                        <tr>
+                            <td>Information Technology</td>
+                            <td>Mr. Kebede</td>
+                            <td>91%</td>
+                            <td>89%</td>
+                            <td>90%</td>
+                            <td class="grade-A">A+</td>
+                            <td><i class="fas fa-arrow-down trend down"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>Attendance Record - March 2025</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Day</th>
+                            <th>Status</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>March 2</td>
+                            <td>Monday</td>
+                            <td class="attendance-present">Present</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>March 3</td>
+                            <td>Tuesday</td>
+                            <td class="attendance-present">Present</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>March 4</td>
+                            <td>Wednesday</td>
+                            <td class="attendance-present">Present</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>March 5</td>
+                            <td>Thursday</td>
+                            <td class="attendance-absent">Absent</td>
+                            <td>Medical appointment</td>
+                        </tr>
+                        <tr>
+                            <td>March 6</td>
+                            <td>Friday</td>
+                            <td class="attendance-present">Present</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>March 9</td>
+                            <td>Monday</td>
+                            <td class="attendance-present">Present</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>March 10</td>
+                            <td>Tuesday</td>
+                            <td class="attendance-late">Late (15 min)</td>
+                            <td>Traffic delay</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn-outline" style="margin-top: 15px;">View Full Attendance History</button>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>Teacher Communications</h3>
+                <div class="tabs">
+                    <div class="tab active" data-tab="messages">Messages</div>
+                    <div class="tab" data-tab="send">Send Message</div>
+                    <div class="tab" data-tab="meetings">Schedule Meeting</div>
+                </div>
+                
+                <div class="tab-content active" id="messages">
+                    <div class="message-item message-unread">
+                        <div class="message-meta">
+                            <span class="message-teacher">Mr. Daniel (Marketing)</span>
+                            <span>March 10, 2025</span>
+                        </div>
+                        <div class="message-content">
+                            <p>Dear Mr. Teshome, I wanted to inform you that Abel did exceptionally well on his market research project, scoring 92%. He showed excellent analytical skills. We have an upcoming group project starting next week that I think he'll excel at.</p>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-meta">
+                            <span class="message-teacher">Mrs. Alemu (Geography)</span>
+                            <span>March 5, 2025</span>
+                        </div>
+                        <div class="message-content">
+                            <p>Hello, this is a reminder that Abel has a geography field trip on October 18th to the Entoto Mountains. Please ensure he brings appropriate hiking shoes and a packed lunch. Permission slips were sent home last week.</p>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-meta">
+                            <span class="message-teacher">Ms. Johnson (English)</span>
+                            <span>February 28, 2025</span>
+                        </div>
+                        <div class="message-content">
+                            <p>Dear Parent, Abel's essay on post-colonial literature demonstrated excellent critical thinking. He could further improve by incorporating more secondary sources. The next assignment is due October 20th.</p>
+                        </div>
+                    </div>
+                    <button class="btn-outline" style="margin-top: 15px;">View All Messages</button>
+                </div>
+                
+                <div class="tab-content" id="send">
+                    <div class="form-group">
+                        <label for="recipient">Recipient</label>
+                        <select id="recipient">
+                            <option value="">-- Select Teacher --</option>
+                            <option value="johnson">Ms. Johnson (English)</option>
+                            <option value="gebre">Mr. Gebremichael (Math)</option>
+                            <option value="alemu">Mrs. Alemu (Geography)</option>
+                            <option value="tadesse">Mr. Tadesse (Economics)</option>
+                            <option value="daniel">Mr. Daniel (Marketing)</option>
+                            <option value="kebede">Mr. Kebede (IT)</option>
+                            <option value="alemu">Mrs. Alemu (Class Teacher)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" placeholder="Subject of your message">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" placeholder="Write your message here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="urgent"> Mark as urgent
+                        </label>
+                    </div>
+                    <button class="btn"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </div>
+                
+                <div class="tab-content" id="meetings">
+                    <div class="form-group">
+                        <label for="meeting-teacher">Teacher to Meet</label>
+                        <select id="meeting-teacher">
+                            <option value="">-- Select Teacher --</option>
+                            <option value="johnson">Ms. Johnson (English)</option>
+                            <option value="gebre">Mr. Gebremichael (Math)</option>
+                            <option value="alemu">Mrs. Alemu (Geography)</option>
+                            <option value="tadesse">Mr. Tadesse (Economics)</option>
+                            <option value="daniel">Mr. Daniel (Marketing)</option>
+                            <option value="kebede">Mr. Kebede (IT)</option>
+                            <option value="alemu">Mrs. Alemu (Class Teacher)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting-date">Preferred Date</label>
+                        <input type="date" id="meeting-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting-time">Preferred Time</label>
+                        <select id="meeting-time">
+                            <option value="">-- Select Time --</option>
+                            <option value="08:00">8:00 AM</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="13:00">1:00 PM</option>
+                            <option value="14:00">2:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting-reason">Reason for Meeting</label>
+                        <select id="meeting-reason">
+                            <option value="">-- Select Reason --</option>
+                            <option value="academic">Academic Performance</option>
+                            <option value="behavior">Behavioral Concerns</option>
+                            <option value="social">Social Development</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="meeting-notes">Additional Notes</label>
+                        <textarea id="meeting-notes" rows="3" placeholder="Any additional information..."></textarea>
+                    </div>
+                    <button class="btn"><i class="fas fa-calendar-check"></i> Request Meeting</button>
+                </div>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>Upcoming Assignments</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Subject</th>
+                            <th>Assignment</th>
+                            <th>Due Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Marketing</td>
+                            <td>Consumer Behavior Analysis Project</td>
+                            <td>March 18, 2025</td>
+                            <td>In Progress</td>
+                        </tr>
+                        <tr>
+                            <td>English</td>
+                            <td>Modern Ethiopian Literature Essay</td>
+                            <td>March 20, 2025</td>
+                            <td>Not Started</td>
+                        </tr>
+                        <tr>
+                            <td>Mathematics</td>
+                            <td>Quadratic Equations Problem Set</td>
+                            <td>April 15, 2025</td>
+                            <td>Submitted</td>
+                        </tr>
+                        <tr>
+                            <td>Geography</td>
+                            <td>Ethiopian Highlands Report</td>
+                            <td>April 12, 2025</td>
+                            <td>Overdue</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="dashboard-card">
+                <h3>School Calendar - March 2025</h3>
+                <div class="calendar">
+                    <div class="calendar-header">Sun</div>
+                    <div class="calendar-header">Mon</div>
+                    <div class="calendar-header">Tue</div>
+                    <div class="calendar-header">Wed</div>
+                    <div class="calendar-header">Thu</div>
+                    <div class="calendar-header">Fri</div>
+                    <div class="calendar-header">Sat</div>
+                    
+                    <div class="calendar-day empty">29</div>
+                    <div class="calendar-day empty">30</div>
+                    <div class="calendar-day">
+                        1
+                        <div class="calendar-event">Math Quiz</div>
+                    </div>
+                    <div class="calendar-day">
+                        2
+                        <div class="calendar-event">English HW Due</div>
+                    </div>
+                    <div class="calendar-day">3</div>
+                    <div class="calendar-day">4</div>
+                    <div class="calendar-day">5</div>
+                    
+                    <div class="calendar-day">6</div>
+                    <div class="calendar-day">7</div>
+                    <div class="calendar-day">
+                        8
+                        <div class="calendar-event">Marketing Project Start</div>
+                    </div>
+                    <div class="calendar-day today">
+                        9
+                        <div class="calendar-event">Today</div>
+                        <div class="calendar-event">Geo Report Due</div>
+                    </div>
+                    <div class="calendar-day">
+                        10
+                        <div class="calendar-event">Marketing WS Due</div>
+                    </div>
+                    <div class="calendar-day">11</div>
+                    <div class="calendar-day">12</div>
+                    
+                    <div class="calendar-day">13</div>
+                    <div class="calendar-day">14</div>
+                    <div class="calendar-day">
+                        15
+                        <div class="calendar-event">Parent-Teacher Meeting</div>
+                        <div class="calendar-event">Math HW Due</div>
+                    </div>
+                    <div class="calendar-day">16</div>
+                    <div class="calendar-day">
+                        17
+                        <div class="calendar-event">IT Project Due</div>
+                    </div>
+                    <div class="calendar-day">
+                        18
+                        <div class="calendar-event">Marketing Project Due</div>
+                        <div class="calendar-event">Field Trip</div>
+                    </div>
+                    <div class="calendar-day">19</div>
+                    
+                    <div class="calendar-day">20</div>
+                    <div class="calendar-day">21</div>
+                    <div class="calendar-day">22</div>
+                    <div class="calendar-day">23</div>
+                    <div class="calendar-day">24</div>
+                    <div class="calendar-day">25</div>
+                    <div class="calendar-day">26</div>
+                    
+                    <div class="calendar-day">27</div>
+                    <div class="calendar-day">28</div>
+                    <div class="calendar-day">29</div>
+                    <div class="calendar-day">30</div>
+                    <div class="calendar-day">31</div>
+                    <div class="calendar-day empty">1</div>
+                    <div class="calendar-day empty">2</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

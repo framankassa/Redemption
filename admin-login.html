@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | School of Redemption</title>
+    <style>
+        :root {
+            --primary: #000000;
+            --secondary: #FFD700;
+            --accent: #FFC000;
+            --light: #FFF9E6;
+            --dark: #333333;
+            --admin-blue: #4285F4;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            height: 80px;
+            width: auto;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 800;
+        }
+        
+        header p {
+            margin: 15px 0 0;
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+        
+        nav {
+            background-color: var(--primary);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        nav a:hover {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            border-top: 5px solid var(--admin-blue);
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--admin-blue);
+        }
+        
+        .login-icon {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--admin-blue);
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #eee;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--admin-blue);
+            box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.2);
+        }
+        
+        .login-btn {
+            background: var(--admin-blue);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .login-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-3px);
+        }
+        
+        .other-portals {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .other-portals p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .other-portals a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .other-portals a:hover {
+            color: var(--admin-blue);
+        }
+        
+        footer {
+            background: var(--primary);
+            padding: 25px;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <section class="logo-container">
+            <img src="https://www.schoolofredemption.net/public/images/logo.png" alt="School of Redemption Logo" class="logo">
+        </section>
+        <h1>Administrator Portal</h1>
+        <p>School Management System Access</p>
+    </header>
+
+    <nav>
+        <a href="redemption.html">Home</a>
+        <a href="admin-login.html" style="background: var(--admin-blue); color: white;">Admin Login</a>
+        <a href="teacher-login.html">Teacher Login</a>
+        <a href="parent-login.html">Parent Login</a>
+        <a href="News.html">News</a>
+        <a href="Contact.html">Contact Us </a>
+    </nav>
+
+    <main>
+        <section class="login-container">
+            <article class="login-icon">
+                <i class="fas fa-user-shield"></i>
+            </article>
+            <h2>Administrator Login</h2>
+            
+            <form action="admin-dashboard.html" method="post">
+                <article class="form-group">
+                    <label for="admin-id">Admin ID</label>
+                    <input type="text" id="admin-id" name="admin-id" placeholder="Enter your admin ID" required>
+                </article>
+                
+                <article class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </article>
+                
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            
+            <article class="other-portals">
+                <p>Looking for other portals? <a href="teacher-login.html">Teacher Login</a> | <a href="parent-login.html">Parent Login</a></p>
+                <p><a href="forgot-password.html">Forgot Password?</a> | <a href="contact.html">Need Help?</a></p>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 School of Redemption. All rights reserved.</p>
+    </footer>
+</body>
+</html>
