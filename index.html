@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School of Redemption</title>
+    <style>
+        :root {
+            --primary: #000000;         /* Black */
+            --secondary: #D4AF37;        /* Gold */
+            --accent: #003366;          /* Dark Powder Blue */
+            --light: #FFFFFF;           /* White */
+            --medium: #777777;           /* Medium Grey */
+            --dark: #333333;            /* Dark Grey */
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.8;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            height: 100px;
+            width: auto;
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--secondary);
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: var(--light);
+        }
+        
+        header p {
+            margin: 20px 0 0;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        nav {
+            background-color: var(--primary);
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            margin: 0 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 30px;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h2 {
+            text-align: center;
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--secondary);
+        }
+        
+        p {
+            font-size: 1.2rem;
+            color: var(--dark);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 30px 0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--medium);
+        }
+        
+        img:hover {
+            transform: scale(1.02);
+        }
+        
+        article {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            border: 1px solid #f0f0f0;
+        }
+        
+        article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        article h3 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            border-left: 5px solid var(--secondary);
+            padding-left: 15px;
+        }
+        
+        article p {
+            text-align: left;
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .mission-vision-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin: 50px 0;
+        }
+        
+        .mv-card {
+            flex: 1 1 400px;
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--secondary);
+        }
+        
+        .mv-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .mv-content {
+            padding: 30px;
+        }
+        
+        .mv-content h4 {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .values-list {
+            text-align: left;
+            padding-left: 20px;
+        }
+        
+        .values-list li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .values-list li::before {
+            content: "•";
+            color: var(--secondary);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+        
+        .compact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--light);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--medium);
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: var(--light);
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(0, 51, 102, 0.1);
+        }
+        
+        button {
+            background: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 20px auto 0;
+        }
+        
+        button:hover {
+            background: var(--secondary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        footer {
+            background: var(--primary);
+            padding: 50px 20px;
+            text-align: center;
+            color: var(--light);
+        }
+        
+        footer p {
+            color: var(--light);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--light);
+        }
+        
+        .beliefs-section {
+            background-color: #f9f9f9;
+            padding: 60px 20px;
+            margin: 40px 0;
+        }
+        
+        .beliefs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .belief-item {
+            margin-bottom: 30px;
+            padding-left: 30px;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .belief-item h4 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+            
+            header p {
+                font-size: 1.2rem;
+            }
+            
+            nav a {
+                margin: 0 10px;
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-vision-container {
+                flex-direction: column;
+            }
+            
+            .mv-card {
+                flex: 1 1 auto;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <section class="logo-container">
+            <img src="https://www.schoolofredemption.net/public/images/logo.png" alt="School of Redemption Logo" class="logo">
+        </section>
+        <h1>School of Redemption</h1>
+        <p>Where Excellence is Not Just a Goal, It's a Standard</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="admin-login.html">Admin Login</a>
+        <a href="teacher-login.html">Teacher Login</a>
+        <a href="parent-login.html">Parent Login</a>
+        <a href="resources.html">Resources</a>
+        <a href="register.html">Registration</a>
+        <a href="staff.html">Staff</a>
+        <a href="#programs">Programs</a>
+        <a href="login.html">Student Login</a>
+        <a href="news.html">News</a>
+        <a href="contact.html">Contact</a>
+    <a href="#programs">Programs</a>
+        <a href="#contact">Contact</a>
+        <a href="login.html">Login</a>
+    </nav>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Since 2009, the <strong>School of Redemption</strong> has been a beacon of excellence in Addis Ababa, Ethiopia. With over <strong>3000 students</strong> and a dedicated team of <strong>400 staff members</strong>, we have created a nurturing environment where students thrive academically, socially, and morally. Our motto, <em>"If excellence is possible, good is not enough,"</em> drives everything we do.</p>
+        <img src="https://www.schoolofredemption.net/public/images/img2.png" alt="School Campus">
+    </section>
+
+    <section id="mission">
+        <h2>Mission & Vision</h2>
+        <div class="mission-vision-container">
+            <article class="mv-card">
+                <div class="mv-content">
+                    <h4>Our Mission</h4>
+                    <p>To provide a transformative educational experience that empowers students to achieve their highest potential through rigorous academics, character development, and service to humanity, all within a nurturing and inclusive environment.</p>
+                </div>
+            </article>
+            <article class="mv-card">
+                <div class="mv-content">
+                    <h4>Our Vision</h4>
+                    <p>To be recognized as Ethiopia's premier educational institution that develops visionary leaders and critical thinkers who will drive positive change in their communities and the world at large.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="values">
+        <h2>Our Core Values</h2>
+        <article class="mv-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="mv-content">
+                <ul class="values-list">
+                    <li><strong>Excellence:</strong> We pursue the highest standards in all aspects of education and personal development.</li>
+                    <li><strong>Integrity:</strong> We uphold honesty, ethics, and moral principles in all our actions.</li>
+                    <li><strong>Respect:</strong> We value diversity and treat all individuals with dignity and compassion.</li>
+                    <li><strong>Responsibility:</strong> We foster accountability for our actions and their impact on others.</li>
+                    <li><strong>Innovation:</strong> We encourage creative thinking and continuous improvement.</li>
+                    <li><strong>Community:</strong> We build strong relationships and serve our local and global communities.</li>
+                </ul>
+            </div>
+        </article>
+    </section>
+
+    <section class="beliefs-section" id="beliefs">
+        <div class="beliefs-container">
+            <h2>Our Educational Beliefs</h2>
+            <div class="belief-item">
+                <h4>Holistic Development</h4>
+                <p>We believe education should nurture the intellectual, physical, emotional, and social development of every student.</p>
+            </div>
+            <div class="belief-item">
+                <h4>Lifelong Learning</h4>
+                <p>We believe in cultivating curiosity and the love of learning that extends far beyond the classroom.</p>
+            </div>
+            <div class="belief-item">
+                <h4>Student-Centered Approach</h4>
+                <p>We believe each student is unique and deserves personalized attention to unlock their full potential.</p>
+            </div>
+            <div class="belief-item">
+                <h4>Global Citizenship</h4>
+                <p>We believe in preparing students to be responsible citizens of both their local communities and the world.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs">
+        <h2>Our Programs</h2>
+        <article class="grid">
+            <article>
+                <h3>Kindergarten</h3>
+                <p>Our kindergarten program focuses on <strong>play-based learning</strong>, helping young minds develop social, emotional, and cognitive skills in a fun and engaging environment.</p>
+            </article>
+            <article>
+                <h3>Elementary School</h3>
+                <p>From Grades 1 to 6, we emphasize <strong>foundational skills</strong> in literacy, numeracy, and critical thinking, preparing students for the challenges ahead.</p>
+            </article>
+            <article>
+                <h3>High School</h3>
+                <p>Our high school program offers a <strong>rigorous academic curriculum</strong>, extracurricular activities, and career guidance to help students excel in their chosen paths.</p>
+            </article>
+        </article>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <form class="compact-form" action="#" method="post">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+                <option value="">Select a subject</option>
+                <option value="admissions">Admissions Inquiry</option>
+                <option value="general">General Information</option>
+                <option value="feedback">Feedback/Suggestions</option>
+                <option value="other">Other</option>
+            </select>
+            
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Enter your message" required></textarea>
+            
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 School of Redemption. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#mission">Mission</a>
+            <a href="#values">Values</a>
+            <a href="#programs">Programs</a>
+            <a href="#contact">Contact</a>
+            <a href="login.html">Login</a>
+        </div>
+        <p>Addis Ababa, Ethiopia | Phone: +251 123 456 789 | Email: info@schoolofredemption.edu.et</p>
+    </footer>
+
+</body>
+</html>
